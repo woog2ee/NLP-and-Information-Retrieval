@@ -12,8 +12,8 @@ vectorizer = TfidfVectorizer()
 
 def get_tf_idf_query_similarity(docs_tfidf, query):
     # 쿼리 토큰화
-    query_token = tokenizer.get_clean_token(query)
-    query_token = tokenizer.refine_text(query_token)
+    query_token = tokenizer.refine_text(query)
+    query_token = tokenizer.get_clean_token(query_token)
    
     # 쿼리와 뉴스의 코사인 유사도 반환
     query_tfidf = vectorizer.transform([' '.join(query_token)])
@@ -23,6 +23,7 @@ def get_tf_idf_query_similarity(docs_tfidf, query):
     
 def retrieval(query, rank=5):
     # 쿼리 - 모든 뉴스의 (유사도,인덱스) 리스트 정렬
+    print(f'\n[Tabloid Discriminator] "{query}" 검색을 준비합니다...')
     query = query.rstrip()
     cos_sims = get_tf_idf_query_similarity(docs_tfidf, query)
     cos_sims_item = sorted([(sim,i) for i,sim in enumerate(cos_sims)], reverse=True)
@@ -30,11 +31,11 @@ def retrieval(query, rank=5):
     # 상위 뉴스 리스트 반환
     ranked = []
     for sim,i in cos_sims_item[:rank*10]:
-        ranked.append([df.iloc[i,1], df.iloc[i,2], i])     # 뉴스 주소, 본문, 인덱스
+        ranked.append([df.iloc[i,1], df.iloc[i,2], i, sim])     # 뉴스 주소, 본문, 인덱스, 유사도
         
     # 검색된 뉴스 중, 내용 유사한 뉴스들 제거
     remove = []
-    for i in range(rank*10):
+    for i in range(rank*10):    
         if i in remove: continue
         idx = ranked[i][2]
         current_news = docs_tfidf[idx].toarray()
@@ -51,12 +52,18 @@ def retrieval(query, rank=5):
     for i in range(len(remove)):
         idx = remove[len(remove)-1-i]
         ranked.pop(idx)
-    return ranked[:rank]
+    ranked = ranked[:rank]
+
+    # 상위 뉴스 유사도 출력
+    for i in range(len(ranked)):
+        sim = ranked[i][3]
+        print(f'[Tabloid Discriminator] 쿼리-검색된 뉴스와의 유사도: {sim}')
+    return ranked
 
 
 
 # 다음 뉴스 읽어오기
-input_file = ''
+input_file = './다음뉴스_202205_토큰화.csv'
 df = pd.read_csv(input_file, header=0)
 
 # 토큰 없는 뉴스들 제거

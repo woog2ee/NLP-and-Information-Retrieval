@@ -48,6 +48,7 @@ class Searcher:
         self.searched_link    = searched_result[1]
         self.searched_content = searched_result[2]
         
+        
     def get_searched_daumnews(self, query, n):
         # 드라이버 실행
         options = webdriver.ChromeOptions()
@@ -90,7 +91,7 @@ class Searcher:
                 cnt += 1
                 i += 1
             except Exception: 
-                print(Exception)
+                #print(Exception)
                 i += 1
                 continue
 

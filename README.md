@@ -1,4 +1,4 @@
-# Atelier
+# NLP-and-Information-Retrieval
 CAU 2022-1 NLP and Information Retrieval Project Repository   
 Check out Presentation at [Link](https://github.com/woog2ee/NLP-and-Information-Retrieval/blob/main/Team%20Project/Tabloid%20Discriminator%20Presentation.pdf)
 

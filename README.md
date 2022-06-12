@@ -3,7 +3,7 @@ CAU 2022-1 NLP and Information Retrieval Project Repository
 Check out Presentation at [Link](https://github.com/woog2ee/NLP-and-Information-Retrieval/blob/main/Team%20Project/Tabloid%20Discriminator%20Presentation.pdf)
 
 ## 👪 Teammates
-- Team name: **Kakaotalk Tabloid Discriminator (카카오톡 찌라시 판별기)**
+- Team name: **Tabloid Discriminator (찌라시 판별기)**
 - **Seunguk Yu**: School of Computer Science & Engineering in CAU   
 - **Minju Kim**: School of Computer Science & Engineering in CAU   
 - **Hunseok Jeong**: School of Computer Science & Engineering in CAU
